@@ -11,14 +11,24 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats.all();
+  $scope.chats = Chats;
+
   $scope.remove = function(chat) {
-    Chats.remove(chat);
+    var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/' + chat.$id);
+    ref.remove();
   };
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+  var chatId = $stateParams.chatId;
+  var chat = null;
+  for (var i = 0; i < Chats.length; i++) {
+    if (Chats[i].$id === chatId) {
+      chat = Chats[i];
+      break;
+    }
+  }
+  $scope.chat = chat;
 })
 
 .controller('AccountCtrl', function($scope) {
