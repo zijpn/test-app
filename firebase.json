@@ -1,0 +1,9 @@
+{
+  "firebase": "test-app-ionic",
+  "public": "www",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

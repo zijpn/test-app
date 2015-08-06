@@ -4,4 +4,3 @@ angular.module('starter.services', ['firebase'])
   var chatsRef = new Firebase('https://test-app-ionic.firebaseio.com/chats');
   return $firebaseArray(chatsRef);
 }]);
-
