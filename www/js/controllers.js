@@ -1,5 +1,21 @@
 angular.module('starter.controllers', [])
 
+.controller('AuthCtrl', function($scope, Auth) {
+  Auth.$onAuth(function(authData) {
+    $scope.authData = authData;
+  });
+
+  $scope.login = function(provider) {
+    Auth.$authWithOAuthPopup(provider).catch(function(error) {
+      console.error(error);
+    });
+  }
+
+  $scope.logout = function() {
+    Auth.$unauth();
+  }
+})
+
 .controller('DashCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
@@ -29,10 +45,4 @@ angular.module('starter.controllers', [])
     }
   }
   $scope.chat = chat;
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
 });

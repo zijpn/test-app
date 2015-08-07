@@ -1,0 +1,18 @@
+<ion-view view-title="Login">
+  <ion-content padding="true">
+
+    <button class="button button-block button-stable" ng-click="login('github')" ng-hide="authData">
+      Login with <b>Github</b>
+    </button>
+
+    <div ng-show="authData">
+      <ion-item class="item-avatar item-icon-right">
+        <img ng-src="{{ authData.github.cachedUserProfile.avatar_url }}" />
+        <h2>{{ authData.github.displayName }}</h2>
+      </ion-item>
+      <button class="button button-block button-stable" ng-click="logout()">
+        Logout
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
