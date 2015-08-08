@@ -16,7 +16,11 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, TwitchTV) {
+  TwitchTV.getTopGames().then(function(games) {
+    $scope.topGames = games;
+  });
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

@@ -1,28 +1,11 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="Games">
   <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
-      <div class="item item-body">
-        <div>
-          There is a fire in <b>sector 3</b>
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Health</div>
-      <div class="item item-body">
-        <div>
-          You ate an apple today!
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
-      </div>
-    </div>
+    <ion-list class="card">
+      <ion-item class="item" ng-repeat="game in topGames | limitTo:10">
+        <img ng-src="{{game.game.box.small}}" />
+        <h2>{{game.game.name}}</h2>
+        <p>{{game.viewers}}</p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
