@@ -16,7 +16,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('DashCtrl', function($scope, TwitchTV) {
+.controller('GamesCtrl', function($scope, TwitchTV) {
   TwitchTV.getTopGames().then(function(games) {
     $scope.topGames = games;
   });
