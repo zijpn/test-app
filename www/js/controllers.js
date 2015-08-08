@@ -22,6 +22,13 @@ angular.module('starter.controllers', [])
   });
 })
 
+.controller('GameDetailCtrl', function($scope, $stateParams, TwitchTV) {
+  $scope.game = $stateParams.game;
+  TwitchTV.getGameStreams($scope.game).then(function(streams) {
+    $scope.streams = streams;
+  });
+})
+
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.

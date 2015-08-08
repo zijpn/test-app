@@ -11,7 +11,8 @@ angular.module('starter.services', ['firebase'])
 .factory('TwitchTV', function($http, $q) {
   // interface
   var result = {
-    getTopGames: getTopGames
+    getTopGames: getTopGames,
+    getGameStreams: getGameStreams
   }
   return result;
 
@@ -21,6 +22,15 @@ angular.module('starter.services', ['firebase'])
     $http.jsonp('https://api.twitch.tv/kraken/games/top?callback=JSON_CALLBACK')
       .then(function(res) {
         def.resolve(res.data.top);
+      });
+    return def.promise;
+  }
+
+  function getGameStreams(game) {
+    var def = $q.defer();
+    $http.jsonp('https://api.twitch.tv/kraken/streams?game=' + encodeURIComponent(game) + '&callback=JSON_CALLBACK')
+      .then(function(res) {
+        def.resolve(res.data.streams);
       });
     return def.promise;
   }

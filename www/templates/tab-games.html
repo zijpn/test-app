@@ -1,10 +1,11 @@
 <ion-view view-title="Games">
   <ion-content class="padding">
     <ion-list class="card">
-      <ion-item class="item" ng-repeat="game in topGames | limitTo:10">
+      <ion-item class="item item-avatar item-icon-right" ng-repeat="game in topGames | limitTo:10" type="item-text-wrap" href="#/tab/games/{{game.game.name}}">
         <img ng-src="{{game.game.box.small}}" />
         <h2>{{game.game.name}}</h2>
-        <p>{{game.viewers}}</p>
+        <p>{{game.viewers}} <i class="ion-eye"></i></p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
   </ion-content>
