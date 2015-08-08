@@ -1,1 +1,7 @@
 /* Add your own CSS if you like */
+.center{
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+}
