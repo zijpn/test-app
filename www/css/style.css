@@ -1,12 +1,13 @@
-/* Add your own CSS if you like */
-.center{
+.center {
   display: -webkit-box;
   display: -moz-box;
   -webkit-box-pack: center;
   -moz-box-pack: center;
 }
 
-video {
-  width: 100%    !important;
-  height: auto   !important;
+.userimg {
+  width: 64px;
+  height: 64px;
+  display:block;
+  margin:auto;
 }

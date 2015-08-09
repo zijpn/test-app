@@ -3,6 +3,7 @@ angular.module('starter.controllers', [])
 .controller('AuthCtrl', function($scope, Auth) {
   Auth.$onAuth(function(authData) {
     $scope.authData = authData;
+    $scope.title = authData ? authData.github.displayName : "Login";
   });
 
   $scope.login = function(provider) {
@@ -33,7 +34,6 @@ angular.module('starter.controllers', [])
   $scope.game = $stateParams.game;
   $scope.stream = $stateParams.stream;
   $scope.url = TwitchTV.getStreamUrl($scope.stream);
-  $scope.hls = TwitchTV.getStreamUrlHLS($scope.stream);
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
