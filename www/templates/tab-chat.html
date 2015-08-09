@@ -1,4 +1,4 @@
-<ion-view view-title="Chats">
+<ion-view view-title="Chat">
   <ion-nav-buttons side="right">
     <button class="button button-icon ion-plus" ng-click="add()"></button>
   </ion-nav-buttons>
@@ -6,7 +6,7 @@
     <ion-list class="card">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats | orderBy:'time':true" type="item-text-wrap" href="#/tab/chats/{{chat.$id}}">
         <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
+        <h2>{{chat.time | date:'medium'}}</h2>
         <p>{{chat.text}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="remove(chat)" ng-show="auth">

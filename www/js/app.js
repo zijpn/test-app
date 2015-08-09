@@ -70,20 +70,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-  .state('tab.chats', {
-    url: '/chats',
+  .state('tab.chat', {
+    url: '/chat',
     views: {
-      'tab-chats': {
-        templateUrl: 'templates/tab-chats.html',
-        controller: 'ChatsCtrl'
+      'tab-chat': {
+        templateUrl: 'templates/tab-chat.html',
+        controller: 'ChatCtrl'
       }
     }
   })
 
   .state('tab.chat-detail', {
-    url: '/chats/:chatId',
+    url: '/chat/:chatId',
     views: {
-      'tab-chats': {
+      'tab-chat': {
         templateUrl: 'templates/chat-detail.html',
         controller: 'ChatDetailCtrl'
       }
@@ -91,10 +91,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('tab.chat-post', {
-    url: '/chats/post',
+    url: '/chat/post',
     params: { auth: null },
     views: {
-      'tab-chats': {
+      'tab-chat': {
         templateUrl: 'templates/chat-post.html',
         controller: 'ChatPostCtrl'
       }
