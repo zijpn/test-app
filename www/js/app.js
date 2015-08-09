@@ -90,6 +90,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('tab.chat-post', {
+    url: '/chats/post',
+    params: { auth: null },
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/chat-post.html',
+        controller: 'ChatPostCtrl'
+      }
+    }
+  })
+
   .state('tab.login', {
     url: '/login',
     views: {

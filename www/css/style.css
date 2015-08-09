@@ -11,3 +11,8 @@
   display:block;
   margin:auto;
 }
+
+.chatimg {
+  width: 64px;
+  height: 64px;
+}

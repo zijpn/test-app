@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
   $scope.url = TwitchTV.getStreamUrl($scope.stream);
 })
 
-.controller('ChatsCtrl', function($scope, $ionicPopup, Chats, Auth) {
+.controller('ChatsCtrl', function($scope, $ionicPopup, $state, Chats, Auth) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -45,7 +45,11 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats;
+  $scope.chats = Chats.reverse();
+
+  Auth.$onAuth(function(authData) {
+    $scope.auth = authData;
+  });
 
   $scope.remove = function(chat) {
     var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/' + chat.$id);
@@ -53,15 +57,33 @@ angular.module('starter.controllers', [])
   };
 
   $scope.add = function() {
-    var auth = Auth.$getAuth();
-    if (!auth) {
+    if (!$scope.auth) {
       var popup = $ionicPopup.alert({
         title: 'You need to login first'
       });
       return;
     }
-    // TODO
-    console.log("Add chat message from " + auth.github.displayName);
+    // change view and pass auth object to it
+    $state.go('tab.chat-post', { auth: $scope.auth });
+  };
+})
+
+.controller('ChatPostCtrl', function($scope, $state, $stateParams) {
+  $scope.auth = $stateParams.auth;
+  $scope.post = function(form) {
+    if ($scope.auth && form.msg) {
+      var chatmsg = {
+        name: $scope.auth.github.displayName,
+        face: $scope.auth.github.cachedUserProfile.avatar_url,
+        text: form.msg.$viewValue,
+        time: new Date().getTime()
+      };
+      // add it to firebase
+      var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/');
+      ref.push(chatmsg);
+      // go back to message overview
+      $state.go('tab.chats');
+    }
   };
 })
 
