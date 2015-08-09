@@ -21,6 +21,19 @@ angular.module('starter.controllers', [])
   TwitchTV.getTopGames().then(function(games) {
     $scope.topGames = games;
   });
+  $scope.strip = function(url) {
+    console.log(url);
+    return url.replace(/.*?:\/\//g, "");
+  };
+})
+
+.filter('proto', function() {
+  return function(input, p) {
+    var protocol = p ? p + ':' : '';
+    output = input.replace(/.*?:/, protocol);
+    console.log('proto:' + protocol + ', url:' + output);
+    return output;
+  }
 })
 
 .controller('GameDetailCtrl', function($scope, $stateParams, TwitchTV) {
