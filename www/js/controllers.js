@@ -30,9 +30,7 @@ angular.module('starter.controllers', [])
 .filter('proto', function() {
   return function(input, p) {
     var protocol = p ? p + ':' : '';
-    output = input.replace(/.*?:/, protocol);
-    console.log('proto:' + protocol + ', url:' + output);
-    return output;
+    return input.replace(/.*?:/, protocol);
   }
 })
 
