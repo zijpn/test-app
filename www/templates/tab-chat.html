@@ -1,13 +1,13 @@
 <ion-view view-title="Chat">
   <ion-nav-buttons side="right">
-    <button class="button button-icon ion-plus" ng-click="add()"></button>
+    <button class="button button-icon ion-ios-chatbubble" ng-click="add()"></button>
   </ion-nav-buttons>
   <ion-content class="padding">
     <ion-list class="card">
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats | orderBy:'time':true" type="item-text-wrap" href="#/tab/chats/{{chat.$id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats | orderBy:'time':true" type="item-text-wrap" href="#/tab/chat/{{chat.$id}}">
         <img ng-src="{{chat.face}}">
-        <h2>{{chat.time | date:'medium'}}</h2>
-        <p>{{chat.text}}</p>
+        <h2>{{chat.text}}</h2>
+        <p>{{chat.time | date:'medium'}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="remove(chat)" ng-show="auth">
           Delete
