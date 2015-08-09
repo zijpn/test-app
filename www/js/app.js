@@ -60,6 +60,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('tab.game-view', {
+    url: '/games/:game/:stream',
+    views: {
+      'tab-games': {
+        templateUrl: 'templates/game-view.html',
+        controller: 'GameViewCtrl'
+      }
+    }
+  })
+
   .state('tab.chats', {
     url: '/chats',
     views: {

@@ -5,3 +5,8 @@
   -webkit-box-pack: center;
   -moz-box-pack: center;
 }
+
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}

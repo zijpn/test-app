@@ -8,11 +8,13 @@ angular.module('starter.services', ['firebase'])
 })
 
 // Twitch.tv
-.factory('TwitchTV', function($http, $q) {
+.factory('TwitchTV', function($http, $q, $sce) {
   // interface
   var result = {
     getTopGames: getTopGames,
-    getGameStreams: getGameStreams
+    getGameStreams: getGameStreams,
+    getStreamUrl: getStreamUrl,
+    getStreamUrlHLS: getStreamUrlHLS
   }
   return result;
 
@@ -34,4 +36,17 @@ angular.module('starter.services', ['firebase'])
       });
     return def.promise;
   }
+
+  function getStreamUrl(stream) {
+    // Strict Contextual Escaping
+    // https://docs.angularjs.org/api/ng/service/$sce
+    var url = "http://www.twitch.tv/" + stream + "/embed";
+    return $sce.trustAsResourceUrl(url);
+  }
+
+  function getStreamUrlHLS(stream) {
+    var url = "http://www.twitch.tv/" + stream + "/hls";
+    return $sce.trustAsResourceUrl(url);
+  }
+
 });
