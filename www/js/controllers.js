@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
   $scope.url = TwitchTV.getStreamUrl($scope.stream);
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, $ionicPopup, Chats, Auth) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -50,6 +50,18 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/' + chat.$id);
     ref.remove();
+  };
+
+  $scope.add = function() {
+    var auth = Auth.$getAuth();
+    if (!auth) {
+      var popup = $ionicPopup.alert({
+        title: 'You need to login first'
+      });
+      return;
+    }
+    // TODO
+    console.log("Add chat message from " + auth.github.displayName);
   };
 })
 

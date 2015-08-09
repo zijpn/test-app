@@ -1,4 +1,7 @@
 <ion-view view-title="Chats">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon ion-plus" ng-click="add()"></button>
+  </ion-nav-buttons>
   <ion-content class="padding">
     <ion-list class="card">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.$id}}">
