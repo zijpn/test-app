@@ -14,7 +14,7 @@
 
 .video-container {
   margin-left: auto;
-	margin-right: auto;
+  margin-right: auto;
   height: calc(100vh - 92px);
   max-height: calc(100vw * 0.5625); /* 16:9 */
   overflow: hidden;
