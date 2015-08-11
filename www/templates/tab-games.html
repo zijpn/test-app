@@ -2,7 +2,7 @@
   <ion-content class="padding">
     <ion-list class="card">
       <ion-item class="item item-avatar item-icon-right" ng-repeat="game in topGames | limitTo:10" type="item-text-wrap" href="#/tab/games/{{game.game.name}}">
-        <img ng-src="{{game.game.box.small | proto:'https'}}" />
+        <img ng-src="{{game.game.box.small | proto:'http'}}" />
         <h2>{{game.game.name}}</h2>
         <p>{{game.viewers}} <i class="ion-eye"></i></p>
         <i class="icon ion-chevron-right icon-accessory"></i>

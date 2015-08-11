@@ -27,13 +27,6 @@ angular.module('starter.controllers', [])
   };
 })
 
-.filter('proto', function() {
-  return function(input, p) {
-    var protocol = p ? p + ':' : '';
-    return input.replace(/.*?:/, protocol);
-  }
-})
-
 .controller('GameDetailCtrl', function($scope, $stateParams, TwitchTV) {
   $scope.game = $stateParams.game;
   TwitchTV.getGameStreams($scope.game).then(function(streams) {

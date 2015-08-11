@@ -3,7 +3,7 @@
     <ion-list class="card">
       <ion-item class="item" ng-repeat="stream in streams | limitTo:20">
         <a href="#/tab/games/{{game}}/{{stream.channel.name}}">
-          <img ng-src="{{stream.preview.medium | proto:'https'}}">
+          <img ng-src="{{stream.preview.medium | proto:'http'}}">
         </a>
         <p><b>{{stream.channel.display_name}}</b>
           <span class="item-note">
