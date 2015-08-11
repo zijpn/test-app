@@ -1,15 +1,6 @@
-.center {
-  display: -webkit-box;
-  display: -moz-box;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-}
-
 .userimg {
   width: 64px;
   height: 64px;
-  display:block;
-  margin:auto;
 }
 
 .video-container {

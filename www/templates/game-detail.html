@@ -1,15 +1,25 @@
 <ion-view view-title="{{game}}">
-  <ion-content class="padding center">
+  <ion-content padding="true">
     <ion-list class="card">
       <ion-item class="item" ng-repeat="stream in streams | limitTo:20">
-        <a href="#/tab/games/{{game}}/{{stream.channel.name}}">
-          <img ng-src="{{stream.preview.medium | proto:'http'}}">
-        </a>
-        <p><b>{{stream.channel.display_name}}</b>
-          <span class="item-note">
+
+        <div class="row">
+          <div class="col text-center">
+            <a href="#/tab/games/{{game}}/{{stream.channel.name}}">
+              <img ng-src="{{stream.preview.medium | proto:'http'}}">
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-right">
+            {{stream.channel.display_name}}
+          </div>
+          <div class="col">
             {{stream.viewers}} <i class="ion-eye"></i>
-          </span>
-        </p>
+          </div>
+        </div>
+
       </ion-item>
     </ion-list>
   </ion-content>
