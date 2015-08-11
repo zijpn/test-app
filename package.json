@@ -19,8 +19,8 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard",
     "cordova-plugin-inappbrowser",
+    "com.ionic.keyboard",
     "com.triarc.cookies"
   ],
   "cordovaPlatforms": [

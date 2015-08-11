@@ -73,21 +73,22 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ChatPostCtrl', function($scope, $state, $stateParams) {
-  $scope.auth = $stateParams.auth;
+  var auth = $stateParams.auth.github;
+  $scope.avatar = auth.cachedUserProfile.avatar_url;
   $scope.post = function(form) {
     if ($scope.auth && form.msg) {
       var chatmsg = {
-        name: $scope.auth.github.displayName,
-        face: $scope.auth.github.cachedUserProfile.avatar_url,
+        name: auth.displayName || auth.username,
+        face: $scope.avatar,
         text: form.msg.$viewValue,
         time: new Date().getTime()
       };
-      // add it to firebase
+      // push to firebase
       var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/');
       ref.push(chatmsg);
-      // go back to message overview
-      $state.go('tab.chat');
     }
+    // go back to message overview
+    $state.go('tab.chat');
   };
 })
 
