@@ -15,7 +15,7 @@ angular.module('starter.services', ['firebase'])
     getGameStreams: getGameStreams,
     getStreamUrl: getStreamUrl,
     getStreamUrlHLS: getStreamUrlHLS
-  }
+  };
   return result;
 
   // implementation

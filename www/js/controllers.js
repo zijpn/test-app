@@ -10,11 +10,11 @@ angular.module('starter.controllers', [])
     Auth.$authWithOAuthPopup(provider).catch(function(error) {
       console.error(error);
     });
-  }
+  };
 
   $scope.logout = function() {
     Auth.$unauth();
-  }
+  };
 })
 
 .controller('GamesCtrl', function($scope, TwitchTV) {

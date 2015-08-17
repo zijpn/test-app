@@ -5,10 +5,14 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 var sh = require('shelljs');
 
-var paths = {
-  sass: ['./scss/**/*.scss']
+var src_paths = {
+  sass: ['./scss/**/*.scss'],
+  css: ['./www/css/**/*.css'],
+  scripts: ['./www/js/**/*.js']
 };
 
 gulp.task('default', ['sass']);
@@ -28,7 +32,18 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(src_paths.sass, ['sass']);
+});
+
+
+///////////////////////////////////////////////////////
+// MISC TASKS
+///////////////////////////////////////////////////////
+
+gulp.task('lint', function(){
+  return gulp.src(src_paths.scripts)
+   .pipe(jshint())
+   .pipe(jshint.reporter(stylish))
 });
 
 gulp.task('install', ['git-check'], function() {
