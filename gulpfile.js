@@ -25,9 +25,11 @@ gulp.task('dist', function() {
     }))
     .pipe(gulp.dest('./dist/'));
   var templ = gulp.src(src_path.templates)
-    .pipe(gulp.dest('./dist/templates'));
+    .pipe(gulp.dest('./dist/templates/'));
   var fonts = gulp.src(src_path.fonts)
-    .pipe(gulp.dest('./dist/fonts'));
+    .pipe(gulp.dest('./dist/fonts/'));
+  var icon = gulp.src('./www/favicon.ico')
+    .pipe(gulp.dest('./dist/'));
   return merge(mini, templ, fonts);
 });
 
