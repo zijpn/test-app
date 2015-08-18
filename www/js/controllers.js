@@ -49,14 +49,14 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats.reverse();
+  $scope.chats = Chats.data.reverse();
 
   Auth.$onAuth(function(authData) {
     $scope.auth = authData;
   });
 
   $scope.remove = function(chat) {
-    var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/' + chat.$id);
+    var ref = new Firebase(Chats.url + chat.$id);
     ref.remove();
   };
 
@@ -72,11 +72,11 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatPostCtrl', function($scope, $state, $stateParams) {
+.controller('ChatPostCtrl', function($scope, $state, $stateParams, Chats) {
   var auth = $stateParams.auth.github;
   $scope.avatar = auth.cachedUserProfile.avatar_url;
   $scope.post = function(form) {
-    if ($scope.auth && form.msg) {
+    if (auth && form.msg) {
       var chatmsg = {
         name: auth.displayName || auth.username,
         face: $scope.avatar,
@@ -84,8 +84,7 @@ angular.module('starter.controllers', [])
         time: new Date().getTime()
       };
       // push to firebase
-      var ref = new Firebase('https://test-app-ionic.firebaseio.com/chats/');
-      ref.push(chatmsg);
+      Chats.ref.push(chatmsg);
     }
     // go back to message overview
     $state.go('tab.chat');
@@ -95,9 +94,10 @@ angular.module('starter.controllers', [])
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   var chatId = $stateParams.chatId;
   var chat = null;
-  for (var i = 0; i < Chats.length; i++) {
-    if (Chats[i].$id === chatId) {
-      chat = Chats[i];
+  var chats = Chats.data;
+  for (var i = 0; i < chats.length; i++) {
+    if (chats[i].$id === chatId) {
+      chat = chats[i];
       break;
     }
   }

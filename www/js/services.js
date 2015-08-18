@@ -1,14 +1,19 @@
 angular.module('starter.services', ['firebase'])
 
-// AngularFire Service
-//  $firebaseArray : synchronized collections
 .factory('Chats', function($firebaseArray) {
-  var chatsRef = new Firebase('https://test-app-ionic.firebaseio.com/chats');
-  return $firebaseArray(chatsRef);
+  var chatUrl = 'https://test-app-ionic.firebaseio.com/chats/';
+  var chatRef = new Firebase(chatUrl);
+  return {
+    url: chatUrl,
+    ref: chatRef,
+    // $firebaseArray: synchronized collections (AngularFire)
+    data: $firebaseArray(chatRef)
+  };
 })
 
 // Twitch.tv
 .factory('TwitchTV', function($http, $q, $sce) {
+  var apiBaseUrl = 'https://api.twitch.tv/kraken/';
   // interface
   var result = {
     getTopGames: getTopGames,
@@ -21,7 +26,7 @@ angular.module('starter.services', ['firebase'])
   // implementation
   function getTopGames() {
     var def = $q.defer();
-    $http.jsonp('https://api.twitch.tv/kraken/games/top?callback=JSON_CALLBACK')
+    $http.jsonp(apiBaseUrl + 'games/top?callback=JSON_CALLBACK')
       .then(function(res) {
         def.resolve(res.data.top);
       });
@@ -30,7 +35,7 @@ angular.module('starter.services', ['firebase'])
 
   function getGameStreams(game) {
     var def = $q.defer();
-    $http.jsonp('https://api.twitch.tv/kraken/streams?game=' + encodeURIComponent(game) + '&callback=JSON_CALLBACK')
+    $http.jsonp(apiBaseUrl + 'streams?game=' + encodeURIComponent(game) + '&callback=JSON_CALLBACK')
       .then(function(res) {
         def.resolve(res.data.streams);
       });
@@ -38,9 +43,9 @@ angular.module('starter.services', ['firebase'])
   }
 
   function getStreamUrl(stream) {
+    var url = "http://www.twitch.tv/" + stream + "/embed";
     // Strict Contextual Escaping
     // https://docs.angularjs.org/api/ng/service/$sce
-    var url = "http://www.twitch.tv/" + stream + "/embed";
     return $sce.trustAsResourceUrl(url);
   }
 
