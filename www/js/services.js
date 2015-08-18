@@ -24,11 +24,12 @@ angular.module('starter.services', ['firebase'])
   return result;
 
   // implementation
-  function getTopGames() {
+  function getTopGames(offset, limit) {
+    // https://github.com/justintv/Twitch-API/blob/master/v3_resources/games.md#get-gamestop
     var def = $q.defer();
-    $http.jsonp(apiBaseUrl + 'games/top?callback=JSON_CALLBACK')
+    $http.jsonp(apiBaseUrl + 'games/top?limit='+ limit +'&offset='+ offset +'&callback=JSON_CALLBACK')
       .then(function(res) {
-        def.resolve(res.data.top);
+        def.resolve(res.data);
       });
     return def.promise;
   }
