@@ -13,3 +13,4 @@ Build for android:
 * ionic plugin add com.triarc.cookies
 * ionic build android
 
+Try it: http://zijpn.github.io/test-app-ionic/
