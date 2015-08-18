@@ -13,7 +13,8 @@ var src_path = {
   html: ['./www/*.html'],
   css: ['./www/css/**/*.css'],
   scripts: ['./www/js/**/*.js'],
-  templates: ['./www/templates/**/*.html']
+  templates: ['./www/templates/**/*.html'],
+  fonts: ['./www/lib/ionic/fonts/*.ttf']
 };
 
 gulp.task('dist', function() {
@@ -25,7 +26,9 @@ gulp.task('dist', function() {
     .pipe(gulp.dest('./dist/'));
   var templ = gulp.src(src_path.templates)
     .pipe(gulp.dest('./dist/templates'));
-  return merge(mini, templ);
+  var fonts = gulp.src(src_path.fonts)
+    .pipe(gulp.dest('./dist/fonts'));
+  return merge(mini, templ, fonts);
 });
 
 gulp.task('clean', function() {
