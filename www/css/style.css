@@ -3,6 +3,10 @@
   height: 64px;
 }
 
+.stream-preview {
+  max-width: calc(100vw * 0.8);
+}
+
 .video-container {
   margin-left: auto;
   margin-right: auto;
