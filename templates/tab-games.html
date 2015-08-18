@@ -1,10 +1,15 @@
-<ion-view view-title="Games">
+<ion-view view-title="Games {{offset+1}}-{{limit+offset}} ({{total}})">
   <ion-content class="padding">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+    </ion-refresher>
     <ion-list class="card">
-      <ion-item class="item item-avatar item-icon-right" ng-repeat="game in topGames | limitTo:10" type="item-text-wrap" href="#/tab/games/{{game.game.name}}">
+      <ion-item class="item item-avatar item-icon-right" ng-repeat="game in topGames" type="item-text-wrap" href="#/tab/games/{{game.game.name}}">
         <img ng-src="{{game.game.box.small | proto:'http'}}" />
         <h2>{{game.game.name}}</h2>
-        <p>{{game.viewers}} <i class="ion-eye"></i></p>
+        <p>
+          {{game.viewers}} <i class="ion-eye"></i> &nbsp;
+          {{game.channels}} <i class="ion-videocamera"></i>
+        </p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
