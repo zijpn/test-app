@@ -1,4 +1,4 @@
-<ion-view view-title="Games {{offset+1}}-{{limit+offset}} ({{total}})">
+<ion-view view-title="Games ({{loaded}}/{{total}})">
   <ion-content class="padding">
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
     </ion-refresher>
@@ -13,5 +13,7 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll immediate-check="false" ng-if="more" on-infinite="loadMore()">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

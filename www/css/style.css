@@ -3,6 +3,10 @@
   height: 64px;
 }
 
+.about {
+  font-size: 50px;
+}
+
 .stream-preview {
   max-width: calc(100vw * 0.8);
 }

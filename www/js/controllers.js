@@ -18,13 +18,29 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GamesCtrl', function($scope, TwitchTV) {
-  $scope.offset = 0;
-  $scope.limit = 20;
+  var limit = 10;
+  $scope.loaded = 0;
+  $scope.more = false;
+  $scope.loadMore = function() {
+    TwitchTV.getTopGames($scope.loaded, limit)
+      .then(function(games) {
+        $scope.topGames.push.apply($scope.topGames, games.top);
+        $scope.total = games._total;
+        $scope.loaded = Math.min($scope.loaded + limit, $scope.total);
+        $scope.more = $scope.loaded < $scope.total;
+      })
+      .finally(function() {
+        // stop spinner
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+  };
   $scope.doRefresh = function() {
-    TwitchTV.getTopGames($scope.offset, $scope.limit)
+    TwitchTV.getTopGames(0, limit)
       .then(function(games) {
         $scope.topGames = games.top;
         $scope.total = games._total;
+        $scope.loaded = Math.min(limit, $scope.total);
+        $scope.more = $scope.loaded < $scope.total;
       })
       .finally(function() {
         // Stop the ion-refresher from spinning
