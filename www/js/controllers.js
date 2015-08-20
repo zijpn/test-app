@@ -18,16 +18,28 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GamesCtrl', function($scope, TwitchTV) {
-  var limit = 10;
+  var limit = 20;
+  var first = true;
   $scope.loaded = 0;
+  $scope.total = 0;
   $scope.more = false;
   $scope.loadMore = function() {
+    // hack to avoid loadMore on view load (immediate-check="false" not working ?)
+    if (first) {
+      console.log('first');
+      first = false;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      return;
+    }
     TwitchTV.getTopGames($scope.loaded, limit)
       .then(function(games) {
-        $scope.topGames.push.apply($scope.topGames, games.top);
-        $scope.total = games._total;
-        $scope.loaded = Math.min($scope.loaded + limit, $scope.total);
-        $scope.more = $scope.loaded < $scope.total;
+        // sometimes the API returns 0 games - ignore that
+        if (games._total) {
+          $scope.topGames.push.apply($scope.topGames, games.top);
+          $scope.total = games._total;
+          $scope.loaded = Math.min($scope.loaded + limit, $scope.total);
+          $scope.more = $scope.loaded < $scope.total;
+        }
       })
       .finally(function() {
         // stop spinner
