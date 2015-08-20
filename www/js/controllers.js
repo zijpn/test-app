@@ -26,7 +26,6 @@ angular.module('starter.controllers', [])
   $scope.loadMore = function() {
     // hack to avoid loadMore on view load (immediate-check="false" not working ?)
     if (first) {
-      console.log('first');
       first = false;
       $scope.$broadcast('scroll.infiniteScrollComplete');
       return;

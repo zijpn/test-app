@@ -14,7 +14,7 @@ var src_path = {
   css: ['./www/css/**/*.css'],
   scripts: ['./www/js/**/*.js'],
   templates: ['./www/templates/**/*.html'],
-  fonts: ['./www/lib/ionic/fonts/*.ttf']
+  fonts: ['./www/lib/ionic/fonts/*.{ttf,woff}']
 };
 
 gulp.task('dist', function() {
