@@ -1,4 +1,7 @@
 # Test app using Ionic and Firebase
+
+[http://zijpn.github.io/test-app-ionic/](http://zijpn.github.io/test-app-ionic/)
+
 Resources to get started:
 - [Ionic Documentation](http://ionicframework.com/docs/)
 - [AngularFire Documentation](https://www.firebase.com/docs/web/libraries/angular/)
@@ -13,9 +16,10 @@ Run on android (device or emulator):
 - ionic build android
 - ionic run android
 
-Try it: [http://zijpn.github.io/test-app-ionic/](http://zijpn.github.io/test-app-ionic/)
-
 Scores:
 - [Page Speed Insight](https://developers.google.com/speed/pagespeed/insights/)
-  - mobile: 59/100 (speed), 100/100 (UX)
-  - desktop: 78/100
+  - mobile: 59% (speed), 100% (UX)
+  - desktop: 78%
+- [GTmetrix](https://gtmetrix.com/)
+  - PageSpeed: 92%
+  - YSlow: 95%
