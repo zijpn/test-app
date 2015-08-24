@@ -16,8 +16,15 @@ Run on android (device or emulator):
 - ionic build android
 - ionic run android
 
+Rebuild dist folter and update gh-pages:
+- gulp
+- git add .
+- git commit -m "..."
+- git push origin master
+- git subtree push --prefix dist origin gh-pages
+
 Scores:
-- [Page Speed Insight](https://developers.google.com/speed/pagespeed/insights/)
+- [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)
   - mobile: 59% (speed), 100% (UX)
   - desktop: 78%
 - [GTmetrix](https://gtmetrix.com/)
