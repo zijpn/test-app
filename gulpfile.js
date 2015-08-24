@@ -4,6 +4,7 @@ var gulpSequence = require('gulp-sequence');
 var htmlify = require('gulp-angular-htmlify');
 var usemin = require('gulp-usemin');
 var uglify = require('gulp-uglify');
+var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
@@ -23,11 +24,13 @@ gulp.task('dist', function() {
     .pipe(htmlify())
     .pipe(usemin({
       css: [minifyCss()],
+      html: [minifyHtml({empty: true})],
       js: [uglify({mangle: false})],
       lib: [uglify({mangle: false})]
     }))
     .pipe(gulp.dest('./dist/'));
   var templ = gulp.src(src_path.templates)
+    .pipe(minifyHtml({empty: true}))
     .pipe(gulp.dest('./dist/templates/'));
   var fonts = gulp.src(src_path.fonts)
     .pipe(gulp.dest('./dist/fonts/'));
