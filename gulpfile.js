@@ -23,7 +23,8 @@ gulp.task('dist', function() {
     .pipe(htmlify())
     .pipe(usemin({
       css: [minifyCss()],
-      js: [uglify({mangle: false})]
+      js: [uglify({mangle: false})],
+      lib: [uglify({mangle: false})]
     }))
     .pipe(gulp.dest('./dist/'));
   var templ = gulp.src(src_path.templates)
