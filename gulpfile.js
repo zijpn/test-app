@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
+var htmlify = require('gulp-angular-htmlify');
 var usemin = require('gulp-usemin');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
@@ -19,6 +20,7 @@ var src_path = {
 
 gulp.task('dist', function() {
   var mini = gulp.src(src_path.html)
+    .pipe(htmlify())
     .pipe(usemin({
       css: [minifyCss()],
       js: [uglify({mangle: false})]
