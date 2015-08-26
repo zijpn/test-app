@@ -8,8 +8,16 @@ var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
-var clean = require('gulp-clean');
+var del = require('del');
 var merge = require('merge-stream');
+var browserSync = require('browser-sync');
+var compress = require('compression');
+var ngrok = require('ngrok');
+var psi = require('psi');
+
+var bs = null;
+var ngrokPort = 3020;
+var ngrokUrl  = '';
 
 var src_path = {
   html: ['./www/*.html'],
@@ -40,14 +48,65 @@ gulp.task('dist', function() {
 });
 
 gulp.task('clean', function() {
-  return gulp.src('./dist', {read: false})
-    .pipe(clean());
+  del(['./dist/**/*']);
 });
 
-gulp.task('lint', function(){
+gulp.task('lint', function() {
   return gulp.src(src_path.scripts)
    .pipe(jshint())
    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('serve', function() {
+  bs = browserSync({
+    port: ngrokPort,
+    open: false,
+    server: {
+      baseDir: './dist',
+      middleware: [compress()]
+    }
+  });
+});
+
+gulp.task('ngrok', ['serve'], function(cb) {
+  return ngrok.connect({
+    port: ngrokPort
+  }, function (err, url) {
+    ngrokUrl = url;
+    gutil.log('Serving tunnel from ' + url);
+    cb();
+  });
+});
+
+gulp.task('psi-desktop', function(cb) {
+  return psi.output(ngrokUrl, {
+    nokey: 'true',
+    strategy: 'desktop',
+    threshold: 1
+  }, cb);
+});
+
+gulp.task('psi-mobile', function(cb) {
+  return psi.output(ngrokUrl, {
+    nokey: 'true',
+    strategy: 'mobile',
+    threshold: 1
+  }, cb);
+});
+
+gulp.task('psi-seq', function(cb) {
+  return gulpSequence(
+    'ngrok',
+    'psi-desktop',
+    'psi-mobile',
+    cb);
+});
+
+gulp.task('psi', ['psi-seq'], function() {
+  if (bs) {
+    gutil.log('Stop browser sync');
+    bs.exit();
+  }
 });
 
 gulp.task('default', gulpSequence(['lint', 'clean'], 'dist'));
