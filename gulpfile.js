@@ -3,12 +3,13 @@ var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 
 var merge = require('merge-stream');
-var browserSync = require('browser-sync');
+var webserver = require('gulp-webserver');
 var ngrok = require('ngrok');
 var psi = require('psi');
 
-var ngrokPort = 3000;
-var ngrokUrl  = '';
+var distServ = null;
+var distPort = 3000;
+var publicUrl = '';
 
 var src_path = {
   html: ['./www/*.html'],
@@ -56,34 +57,29 @@ gulp.task('lint', function() {
    .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('serve', function(cb) {
+gulp.task('serve', function() {
   var compress = require('compression');
-  var opts = {
-    port: ngrokPort,
-    open: false,
-    server: {
-      baseDir: './dist',
-      middleware: [compress()]
-    }
-  };
-  var bs = browserSync.create('Dist Server');
-  bs.init(opts, cb);
+  var cache = require('cache-control');
+  distServ = gulp.src('dist')
+    .pipe(webserver({
+      port: distPort,
+      middleware: [compress(), cache()]
+    }));
+  return distServ;
 });
 
 gulp.task('ngrok', ['serve'], function(cb) {
   return ngrok.connect({
-    port: ngrokPort
+    port: distPort
   }, function (err, url) {
-    ngrokUrl = url;
-    gutil.log('Forwarding ' + url + ' -> http://localhost:' + ngrokPort);
-    gutil.log('Forwarding ' + url.replace('https', 'http') + ' -> http://localhost:' + ngrokPort);
-    gutil.log('Web console at http://localhost:4040');
+    publicUrl = url;
+    gutil.log('Forwarding ' + url.replace('https', 'http(s)') + ' -> http://localhost:' + distPort);
     cb();
   });
 });
 
 gulp.task('psi-desktop', function(cb) {
-  return psi.output(ngrokUrl, {
+  return psi.output(publicUrl, {
     nokey: 'true',
     strategy: 'desktop',
     threshold: 1
@@ -91,7 +87,7 @@ gulp.task('psi-desktop', function(cb) {
 });
 
 gulp.task('psi-mobile', function(cb) {
-  return psi.output(ngrokUrl, {
+  return psi.output(publicUrl, {
     nokey: 'true',
     strategy: 'mobile',
     threshold: 1
@@ -107,10 +103,11 @@ gulp.task('psi-seq', function(cb) {
 });
 
 gulp.task('psi', ['psi-seq'], function() {
-  var bs = browserSync.get('Dist Server');
-  if (bs) {
-    gutil.log('Exit ' + bs.name);
-    bs.exit();
+  gutil.log('Disconnect ngrok');
+  ngrok.disconnect();
+  if (distServ) {
+    gutil.log('Stop web server');
+    distServ.emit('kill');
   }
 });
 
