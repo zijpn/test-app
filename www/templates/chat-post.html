@@ -1,15 +1,11 @@
 <ion-view view-title="Post">
   <ion-content class="padding">
     <form name="msgform" ng-submit="post(msgform)">
-      <div class="list">
-        <a class="item item-thumbnail-left" href="#">
-          <img src="{{avatar}}">
-          <label class="">
-            <input type="text" name="msg" ng-model="msg" placeholder="Your message ..." required>
-          </label>
-        </a>
-        <button class="button button-full button-positive" type="submit">Post</button>
+      <div class="item item-thumbnail-left">
+        <img src="{{avatar}}">
+        <input type="text" name="msg" ng-model="msg" placeholder="Your message ..." required>
       </div>
+      <button class="button button-full button-positive" type="submit">Post</button>
     </form>
   </ion-content>
 </ion-view>
